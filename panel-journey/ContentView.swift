@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-  var body: some View { AddNew() }
-}
+    var body: some View {
+        NavigationStack {
+            TabView {
+                AddNew()
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
 
+                //978-1-50674-551-0 - test isbn13
+                //1607066017 - test isbn10
+
+            }
+        }
+
+    }
+}
 
 #Preview {
     ContentView()
