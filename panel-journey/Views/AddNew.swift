@@ -143,18 +143,18 @@ struct AddNew: View {
                     Text("Invalid ISBN number.")
                 }
 
-                //                .navigationDestination(item: $fetchedComic) { fetchedComic in
-                //                    Display(comic: fetchedComic)
-                //                }
+                .navigationDestination(item: $fetchedComic) { fetchedComic in
+                    Display(comic: fetchedComic)
+                }
             }
         }.padding()
 
-        NavigationStack {
-            NavigationLink(
-                "Go to Detail", destination: Display(comic: fetchedComic)
-            )
-            .navigationTitle("Display")
-        }
+//        NavigationStack {
+//            NavigationLink(
+//                "Go to Detail", destination: Display(comic: fetchedComic)
+//            )
+//            .navigationTitle("Display")
+//        }
 
     }
 

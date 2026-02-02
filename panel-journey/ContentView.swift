@@ -13,10 +13,9 @@ struct ContentView: View {
             TabView {
                 AddNew()
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
+                        Image(systemName: "plus")
+                        Text("Add New")
                     }
-
                 //978-1-50674-551-0 - test isbn13
                 //1607066017 - test isbn10
 

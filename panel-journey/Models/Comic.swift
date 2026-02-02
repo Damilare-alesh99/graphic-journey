@@ -14,7 +14,7 @@ struct Comic: Decodable, Hashable {
     let publishDate: String?
     let publishers: [String]?
     let isbn13: [String]?
-
+    let covers: [Int]?
     let subjects: [String]?
     let lcClassifications: [String]?
     let weight: String?
@@ -33,8 +33,8 @@ struct Comic: Decodable, Hashable {
         case publishDate = "publish_date"
         case publishers
         case isbn13 = "isbn_13"
-
         case subjects
+        case covers
         case lcClassifications = "lc_classifications"
         case weight
         //    case created
