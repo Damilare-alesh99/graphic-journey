@@ -5,7 +5,7 @@ import ContentView from './ContentView';
 export default function PanelJourneyApp() {
   return (
     <>
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
       <ContentView />
     </>
   );

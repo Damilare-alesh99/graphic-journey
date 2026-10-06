@@ -1,49 +1,33 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text } from 'react-native';
+import ResponsiveAppBar from './src/components/ResponsiveAppBar';
 
-import AddNew from './Views/AddNew';
-import Display from './Views/Display';
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 
-function AddNewStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="AddNew"
-        component={AddNew}
-        options={{ title: 'Add New' }}
-      />
-      <Stack.Screen
-        name="Display"
-        component={Display}
-        options={{ title: 'Display' }}
-      />
-    </Stack.Navigator>
-  );
-}
+//route imports
+import AddNew from './src/Views/AddNew';
+import Display from './src/Views/Display';
+
+// 1. Define your stack parameter types
+export type RootStackParamList = {
+  AddNew: undefined;
+  Display: { comic?: any };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function ContentView() {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name="AddNewTab"
-          component={AddNewStack}
-          options={{
-            tabBarLabel: 'Add New',
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size, fontWeight: 'bold' }}>
-                +
-              </Text>
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      {/* Persistent Top Navigation Bar */}
+      <ResponsiveAppBar />
+
+      {/* Screen Routing */}
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="AddNew" component={AddNew} />
+        <Stack.Screen name="Display" component={Display} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

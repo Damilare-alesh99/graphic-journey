@@ -1,15 +1,21 @@
 import axios from 'axios';
 import { Comic } from '../Models/Comic';
 
+const API_BASE_URL = 'http://localhost:8000';
+
 export class ComicService {
   async fetchBook(isbn: string): Promise<Comic> {
     const cleanIsbn = isbn.replace(/-/g, '').replace(/ /g, '').trim();
 
     try {
-      const response = await axios.get<Comic>(
-        `https://openlibrary.org/isbn/${cleanIsbn}.json`
+      const response = await axios.post<Comic>(
+        `${API_BASE_URL}/api/books/lookup`,
+        {
+          isbn: cleanIsbn,
+        }
+        // `https://openlibrary.org/isbn/${cleanIsbn}.json`
       );
-
+      console.log(response.data);
       const data = response.data;
 
       const comic: Comic = {

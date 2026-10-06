@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, Image, ImageSourcePropType, ScrollView } from '
 import { Comic } from '../Models/Comic';
 
 
-import generic from '../assets/defaultCovers/generic-default.jpeg';
-import image from '../assets/defaultCovers/image.png';
-import darkHorse from '../assets/defaultCovers/darkHorse.png';
-import dc from '../assets/defaultCovers/dc.jpeg';
-import marvel from '../assets/defaultCovers/marvel.png';
+import generic from '../../assets/defaultCovers/generic-default.jpeg';
+import image from '../../assets/defaultCovers/image.png';
+import darkHorse from '../../assets/defaultCovers/darkHorse.png';
+import dc from '../../assets/defaultCovers/dc.jpeg';
+import marvel from '../../assets/defaultCovers/marvel.png';
 
 interface DisplayProps {
   comic?: Comic | null;

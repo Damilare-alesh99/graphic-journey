@@ -109,7 +109,7 @@ export default function AddNew({ navigation }: AddNewProps) {
       }
 
       const book = await service.fetchBook(isbn);
-      console.log(book);
+      
       setFetchedComic(book);
       if (navigation) {
         navigation.navigate('Display', { comic: book });
