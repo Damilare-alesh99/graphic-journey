@@ -37,7 +37,8 @@
   "devDependencies": {
     "@types/react": "~18.3.12",
     "@vitejs/plugin-react": "^4.7.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "unplugin-react-components": "^0.1.4"
   },
   "private": true
 }

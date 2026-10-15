@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { Comic } from '../Models/Comic';
 import { ComicService } from '../Data/ISBNLookupService';
+import Snackbar from '@mui/material/Snackbar';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export type IsbnType = '10' | '13';
 
@@ -22,6 +24,9 @@ export default function AddNew({ navigation }: AddNewProps) {
   const [showInvalidISBNAlert, setShowInvalidISBNAlert] = useState(false);
   const [selectedType, setSelectedType] = useState<IsbnType>('13');
   const [isbn, setIsbn] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
   const service = useMemo(() => new ComicService(), []);
 
@@ -34,6 +39,9 @@ export default function AddNew({ navigation }: AddNewProps) {
 
   function triggerAlert() {
     setShowInvalidISBNAlert(true);
+    setLoading(false);
+    setOpen(true);
+    setMessage('Error: Invalid ISBN Number');
     Alert.alert('Important Message', 'Invalid ISBN number.', [
       { text: 'OK', onPress: () => setShowInvalidISBNAlert(false) },
     ]);
@@ -85,7 +93,6 @@ export default function AddNew({ navigation }: AddNewProps) {
     const digits = val.split('').filter((c) => /\d/.test(c)).map(Number);
     if (digits.length !== 13) {
       triggerAlert();
-      throw new Error('Invalid ISBN Number');
     }
 
     const sum = digits.reduce((result, digit, index) => {
@@ -102,6 +109,7 @@ export default function AddNew({ navigation }: AddNewProps) {
 
   const handleFetchBook = async () => {
     try {
+      setLoading(true);
       if (selectedType === '13') {
         isValidISBNThirteen(isbn);
       } else if (selectedType === '10') {
@@ -109,14 +117,26 @@ export default function AddNew({ navigation }: AddNewProps) {
       }
 
       const book = await service.fetchBook(isbn);
-      
+
       setFetchedComic(book);
       if (navigation) {
         navigation.navigate('Display', { comic: book });
       }
     } catch (error: any) {
-      console.log('Request failed:', error.message);
+      setLoading(false);
+      setOpen(true);
+
+      setMessage('Error: ' + error.message);
+    } finally {
+
+
     }
+  };
+
+  const handleClose = (
+  ) => {
+
+    setOpen(false);
   };
 
   return (
@@ -170,10 +190,20 @@ export default function AddNew({ navigation }: AddNewProps) {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.fetchButton} onPress={handleFetchBook}>
-          <Text style={styles.fetchButtonText}>Fetch Book</Text>
-        </TouchableOpacity>
+
+        <Button variant="contained" disabled={loading} onClick={handleFetchBook}>
+          {!loading && <Text style={styles.fetchButtonText}>Fetch Book</Text>}
+          {loading && <CircularProgress aria-label="Loading…" />}
+        </Button>
+
+
       </View>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={message}
+      />
     </View>
   );
 }

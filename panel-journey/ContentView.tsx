@@ -15,19 +15,31 @@ export type RootStackParamList = {
   Display: { comic?: any };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function ContentView() {
+
+  const linking = {
+    prefixes: ['https://example.com', 'example://'],
+    config: {
+      screens: {
+        AddNew: 'new',
+        Display: 'display/:id',
+      },
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      linking={linking}>
       {/* Persistent Top Navigation Bar */}
       <ResponsiveAppBar />
 
       {/* Screen Routing */}
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="AddNew" component={AddNew} />
-        <Stack.Screen name="Display" component={Display} />
-      </Stack.Navigator>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name="AddNew" component={AddNew} />
+        <RootStack.Screen name="Display" component={Display} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }

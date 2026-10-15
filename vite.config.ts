@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
-
+import Components from 'unplugin-react-components/vite'
+import { MuiResolver } from "unplugin-react-components"
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -17,7 +18,10 @@ const extensions = [
 ];
 
 export default defineConfig({
-  plugins: [tailwindcss(), react()],
+  plugins: [tailwindcss(), react(), Components({
+
+    resolvers: [MuiResolver()], dts: true
+  })],
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     __DEV__: JSON.stringify(true),

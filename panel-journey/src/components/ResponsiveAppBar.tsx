@@ -18,8 +18,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = [
   { label: 'New', route: 'AddNew' },
-
-   { label: 'Details', route: 'Display' }, // Future pages
+  // { label: 'Books', route: 'Books' },
+  { label: 'Display', route: 'Display' }, // Future pages
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -35,7 +35,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page: any) => {
+
     setAnchorElNav(null);
   };
 
@@ -119,7 +120,7 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' , justifyContent: 'center'}  }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'center' } }}>
             {pages.map((page) => (
               <Link
                 key={page.label}
@@ -129,11 +130,11 @@ function ResponsiveAppBar() {
                   // @ts-ignore
                   navigation.navigate(page.route);
                 }}
-                sx={{ my: 2, mr : 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, mr: 2, color: 'white', display: 'block' }}
               >
                 {page.label}
               </Link>
-          
+
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
