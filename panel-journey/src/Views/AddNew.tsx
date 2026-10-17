@@ -108,7 +108,13 @@ export default function AddNew({ navigation }: AddNewProps) {
   }
 
   const handleFetchBook = async () => {
+    if (!isbn || isbn.trim() === '') {
+      setOpen(true);
+      setMessage('Please enter a valid ISBN');
+      return;
+    }
     try {
+
       setLoading(true);
       if (selectedType === '13') {
         isValidISBNThirteen(isbn);
@@ -126,10 +132,10 @@ export default function AddNew({ navigation }: AddNewProps) {
       setLoading(false);
       setOpen(true);
 
-      setMessage('Error: ' + error.message);
+      setMessage('Error:' + (error.message || 'something went wrong while fetching the book. Try again later '));
     } finally {
-
-
+      setIsbn('');
+      setLoading(false);
     }
   };
 
